@@ -7,6 +7,6 @@ md-toast.md-error-toast-theme .md-toast-content {
     background-color: red;
 }
 
-md-toast {
-  left: calc(50vw - 150px);
+.filters md-input-container {
+  margin-right: 10px;
 }

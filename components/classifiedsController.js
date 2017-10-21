@@ -4,8 +4,8 @@
 
       ClassifiedsController.$inject = ['$scope', '$http',
                                         'classifiedsFactory', '$mdSidenav',
-                                         '$mdToast'];
-      function ClassifiedsController($scope, $http, classifiedsFactory, $mdSidenav, $mdToast){
+                                         '$mdToast', '$mdDialog'];
+      function ClassifiedsController($scope, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog){
       
       // const vm = this;
       // vm.firstname = "marina";
@@ -15,11 +15,13 @@
                // console.log(classAds.data);
           });
 
-          var contact = {//fake user, should get data from signed in user
+          const contact = {//fake user, should get data from signed in user
             name: "Marina Shemesh",
             phone: "054-444-444-4",
             email: "thisismy@email.com"
           }
+
+          $scope.categories
 
        
         $scope.openSidebar = function(){
@@ -38,14 +40,52 @@
             $scope.classifieds.push(classified);
             $scope.classified = {};
             $scope.closeSidebar();
-            $mdToast.show(
+            showToast(" Your classified has been saved!")
+          }
+      }
+
+      $scope.editClassified = function(addEditing){
+        $scope.editing = true;
+        $scope.openSidebar();
+        $scope.classified = addEditing;
+      }
+
+      $scope.saveEdit = function(){
+        $scope.editing = false;
+        $scope.classified = {};
+        $scope.closeSidebar();
+        showToast("Your edit has been saved.")
+      }
+
+      $scope.deleteClassified = function(event, classified){
+       const confirm = $mdDialog.confirm()
+        .title("Are you sure you want to delete " + classified.title + "?")
+        .ok("Yes please")
+        .cancel("No, don't delete it")
+        .targetEvent(event);
+
+      $mdDialog.show(confirm).then(function(){
+        const index = $scope.classifieds.indexOf(classified);
+         $scope.classifieds.splice(index, 1);
+          }, function(){ //when we don't want to delete
+
+      });
+      
+    }
+
+      function showToast(message) {
+         $mdToast.show(
               $mdToast.simple()
-               .content("Your classified has been saved!")
-               .position("top")
+               .content(message)
+               .position("top, left")
                .theme('error-toast')
                .hideDelay(3000)
               );
-          }
       }
+
+    function getCategories(classifieds){
+      const categories = [];
+      angular. forEach
+    }
  
   }
