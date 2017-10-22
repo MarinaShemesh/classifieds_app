@@ -25,10 +25,10 @@
     </div>
   </md-toolbar>
 
-  <div class="filters" layout="row" layout-align="center center" ng-show="showFilters">
+  <div class="filters" layout="row" layout-align="center" ng-show="showFilters">
     
     <md-input-container>
-      <label>Enter term</label>
+      <label>Enter search term</label>
       <input type ="text" ng-model="classifiedsFilter">
     </md-input-container>
 
@@ -40,7 +40,17 @@
          </md-option>
        </md-select>
     </md-input-container>
+
+     <div layout="row">
+      <md-button
+       class="md-warn" 
+       ng-click="classifiedsFilter = ''; category = ''; ">
+       Clear
+      </md-button>
+    </div>
   </div>
+
+  
 
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" 
     md-component-id="left">
@@ -80,10 +90,10 @@
               md-autofocus>
       </md-input-container>
 
-      <md-button ng-if="!editing" class="md-primary" ng-click="saveClassified(classified)">
+      <md-button ng-if="!editing" class="md-primary" 
+                 ng-click="saveClassified(classified)">
        Save
       </md-button>
-
 
       <md-button ng-if="editing" class="md-primary" ng-click="saveEdit()">
        Save Edit
@@ -94,17 +104,17 @@
       </md-button>
 
       <pre>{{classified | json}}</pre>
-
     </form>
-
    </md-content>
-
   </md-sidenav>
 
  
   <md-content class="md-padding" layout="row" layout-wrap>
     <md-card ng-repeat="classified in classifieds 
-                       | filter: classifiedsFilter" flex="30">
+                       | filter: classifiedsFilter
+                       | filter: category" 
+                       flex="30"
+                       class="classified">
      <img ng-src="{{classified.image}}">
       <md-card-content>
         <div class="classified-info" ng-show="!showContact">
