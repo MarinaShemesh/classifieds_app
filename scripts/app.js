@@ -1,27 +1,25 @@
-      angular.module("ngClassifieds", ["ngMaterial"])
-             .config(function ($mdThemingProvider) {
-         
-             $mdThemingProvider.theme('default')
-              .primaryPalette('teal')
-              .accentPalette('orange');
-           })
+(function() {
 
+  "use strict";
 
-             .directive("helloWorld", function(){
-               return {
-                template: "<h1>{{message}}</h1>"
-               }
-             });
+  angular
+    .module('ngClassifieds', ['ngMaterial', 'ui.router'])
+    .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
 
-//papa-john syntax
-      // angular.module('ngClassifieds')
-      //     .config(ThemeConfig);
+      $mdThemingProvider.theme('default')
+        .primaryPalette('teal')
+        .accentPalette('orange');
 
-      //     ThemeConfig.$inject = ['$mdThemingProvider'];
-      //     function ThemeConfig($mdThemingProvider){
-      //        $mdThemingProvider.theme('default')
-      //         .primaryPalette('teal')
-      //         .accentPalette('orange')
+      $urlRouterProvider.otherwise('/classifieds');
 
-           
-      //     }
+      $stateProvider
+        .state('classifieds', {
+          url: '/classifieds',
+          templateUrl: 'components/classifieds/classifieds.html',
+          controller: 'ClassifiedsController as vm'
+      
+        });
+    });
+    
+})();
+
