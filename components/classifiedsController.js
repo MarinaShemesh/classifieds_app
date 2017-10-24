@@ -14,6 +14,7 @@
               $scope.classifieds = classAds.data;
               $scope.categories = getCategories($scope.classifieds);
                // console.log(classAds.data);
+               // console.log($scope.classifieds);
           });
 
           const contact = {//fake user, should get data from signed in user
