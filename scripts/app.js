@@ -18,7 +18,18 @@
           templateUrl: 'components/classifieds/classifieds.html',
           controller: 'ClassifiedsController as vm'
       
-        });
+        })
+
+          .state('classifieds.new', {
+          url: '/new',
+          templateUrl: 'components/classifieds/new/classNew.html',
+          controller: 'classNewController as vm'
+      
+        })
+
+
+
+        ;
     });
     
 })();

@@ -2,6 +2,10 @@ button .material-icons {
   margin-bottom: 10px;
 }
 
+.md-button.md-warn {
+  margin-top: 15px;
+}
+
 
 md-toast.md-error-toast-theme .md-toast-content {
     background-color: red;

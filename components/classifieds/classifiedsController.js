@@ -4,21 +4,24 @@
 
       ClassifiedsController.$inject = ['$scope', '$http',
                                         'classifiedsFactory', '$mdSidenav',
-                                         '$mdToast', '$mdDialog'];
-      function ClassifiedsController($scope, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog){
+                                         '$mdToast', '$mdDialog', '$state'];
+      function ClassifiedsController($scope, $http, classifiedsFactory, 
+                                      $mdSidenav, $mdToast, $mdDialog, $state){
       
        const vm = this;
-        vm.openSidebar = openSidebar;
-        vm.closeSidebar = closeSidebar;
-        vm.saveClassified = saveClassified;
-        vm.editClassified = editClassified;
-        vm.saveEdit = saveEdit;
-        vm.deleteClassified = deleteClassified;
-
-        vm.classifieds;
+     
         vm.categories;
-        vm.editing;
         vm.classified;
+        vm.classifieds;
+        vm.editing;
+       
+        vm.closeSidebar = closeSidebar;
+        vm.deleteClassified = deleteClassified;
+        vm.editClassified = editClassified;
+        vm.openSidebar = openSidebar;
+        vm.saveClassified = saveClassified;
+        vm.saveEdit = saveEdit;
+        
    
          classifiedsFactory.getClassifieds()
           .then(function (classAds) {
@@ -36,7 +39,7 @@
 
     
         function openSidebar () {
-          $mdSidenav('left').open();
+          $state.go('classifieds.new')
         }
 
         function closeSidebar (){
