@@ -31,6 +31,12 @@
                // console.log($scope.classifieds);
           });
 
+          $scope.$on('newClassified', function (event, classified){//receive info from other controller
+            classified.id = vm.classifieds.length + 1;
+            vm.classifieds.push(classified);
+            showToast('Classified saved!')
+          });
+
           const contact = {//fake user, should get data from signed in user
             name: "Marina Shemesh",
             phone: "054-444-444-4",
@@ -91,7 +97,7 @@
            $mdToast.show(
                 $mdToast.simple()
                  .content(message)
-                 .position("top, left")
+                 .position("top, right")
                  .theme('error-toast')
                  .hideDelay(3000)
                 );
