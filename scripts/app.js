@@ -27,9 +27,15 @@
       
         })
 
-
-
-        ;
+         .state('classifieds.edit', {
+          url: '/edit/:id',
+          templateUrl: 'components/classifieds/edit/classEdit.html',
+          controller: 'classEditController as vm',
+          params: {
+            classified: null
+          }
+      
+        });
     });
     
 })();
