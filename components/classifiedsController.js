@@ -4,9 +4,9 @@
 
       ClassifiedsController.$inject = ['$scope', '$http',
                                         'classifiedsFactory', '$mdSidenav',
-                                         '$mdToast', '$mdDialog', '$state'];
+                                         '$mdToast', '$mdDialog'];
       function ClassifiedsController($scope, $http, classifiedsFactory, 
-                                      $mdSidenav, $mdToast, $mdDialog, $state){
+                                      $mdSidenav, $mdToast, $mdDialog){
       
        const vm = this;
      
@@ -31,16 +31,6 @@
                // console.log($scope.classifieds);
           });
 
-          $scope.$on('newClassified', function (event, classified){//receive info from other controller
-            classified.id = vm.classifieds.length + 1;
-            vm.classifieds.push(classified);
-            showToast('Classified saved!')
-          });
-
-          $scope.$on('editSaved', function (event, message){
-            showToast(message);
-          })
-
           const contact = {//fake user, should get data from signed in user
             name: "Marina Shemesh",
             phone: "054-444-444-4",
@@ -49,7 +39,7 @@
 
     
         function openSidebar () {
-          $state.go('classifieds.new')
+          $mdSidenav('left').open();
         }
 
         function closeSidebar (){
@@ -68,36 +58,32 @@
            }
         }
 
-         function editClassified (classified){
-           // console.log("you clicked the edit button");
-           $state.go('classifieds.edit', {
-            id: classified.id,
-            classified: classified
+       function editClassified (addEditing){
+          vm.editing = true;
+          openSidebar();
+          vm.classified = addEditing;
+        }
 
-           });
+        function saveEdit (){
+          vm.editing = false;
+          vm.classified = {};
+          closeSidebar();
+          showToast("Your edit has been saved.")
+        }
 
-          }
+        function deleteClassified (event, classified){
+         const confirm = $mdDialog.confirm()
+          .title("Are you sure you want to delete " + classified.title + "?")
+          .ok("Yes please")
+          .cancel("No, don't delete it")
+          .targetEvent(event);
 
-          function saveEdit (){
-            vm.editing = false;
-            vm.classified = {};
-            closeSidebar();
-            showToast("Your edit has been saved.")
-          }
+        $mdDialog.show(confirm).then(function(){
+          const index = $scope.classifieds.indexOf(classified);
+           vm.classifieds.splice(index, 1);
+            }, function(){ //when we don't want to delete
 
-          function deleteClassified (event, classified){
-           const confirm = $mdDialog.confirm()
-            .title("Are you sure you want to delete " + classified.title + "?")
-            .ok("Yes please")
-            .cancel("No, don't delete it")
-            .targetEvent(event);
-
-          $mdDialog.show(confirm).then(function(){
-            const index = $scope.classifieds.indexOf(classified);
-             vm.classifieds.splice(index, 1);
-              }, function(){ //when we don't want to delete
-
-            });
+          });
       
        }
 
@@ -105,7 +91,7 @@
            $mdToast.show(
                 $mdToast.simple()
                  .content(message)
-                 .position("top, right")
+                 .position("top, left")
                  .theme('error-toast')
                  .hideDelay(3000)
                 );
