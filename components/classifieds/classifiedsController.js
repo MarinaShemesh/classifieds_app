@@ -87,14 +87,18 @@
 
           function deleteClassified (event, classified){
            const confirm = $mdDialog.confirm()
-            .title("Are you sure you want to delete " + classified.title + "?")
-            .ok("Yes please")
+            .title("Do you want to delete " + classified.title + "?")
+            .ok("Yes")
             .cancel("No, don't delete it")
             .targetEvent(event);
 
+            console.log("you clicked the delete button");
+
           $mdDialog.show(confirm).then(function(){
-            const index = $scope.classifieds.indexOf(classified);
+            
+            const index = vm.classifieds.indexOf(classified);
              vm.classifieds.splice(index, 1);
+              showToast('Classified deleted')
               }, function(){ //when we don't want to delete
 
             });

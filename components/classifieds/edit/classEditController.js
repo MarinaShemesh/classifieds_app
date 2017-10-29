@@ -11,6 +11,7 @@
         vm.closeSidebar = closeSidebar;
         vm.saveEdit = saveEdit;
         vm.classified = $state.params.classified;
+
    
         $timeout(function() {
            $mdSidenav('left').open();
@@ -34,7 +35,9 @@
            $scope.$emit('editSaved', 'Edit saved!')
             vm.sidenavOpen = false;
             }
- 
+
+
+
       }
 
    })();

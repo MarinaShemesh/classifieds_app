@@ -6,12 +6,11 @@
     .module('ngClassifieds', ['ngMaterial', 'ui.router'])
     .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
 
-      $mdThemingProvider.theme('default')
-        .primaryPalette('teal')
-        .accentPalette('orange');
+      $mdThemingProvider.theme('indigo')
+        .primaryPalette('indigo')
+        .accentPalette('pink');
 
       $urlRouterProvider.otherwise('/classifieds');
-
       $stateProvider
         .state('classifieds', {
           url: '/classifieds',
@@ -36,6 +35,7 @@
           }
       
         });
+
     });
     
 })();
